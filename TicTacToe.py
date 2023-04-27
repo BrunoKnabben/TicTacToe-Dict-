@@ -13,6 +13,8 @@ board = {
     '9': ' '
 }
 
+players = cycle(['Jogador 1', 'Jogador 2'])
+
 def resetGame():
     board = {
     '1': ' ',
@@ -38,9 +40,6 @@ def validaEmpate(board):
     else:
         return True
 
-gameOn = True
-players = cycle(['Jogador 1', 'Jogador 2'])
-
 def playerMove(jogador, board):
     valid = False
 
@@ -55,7 +54,7 @@ def playerMove(jogador, board):
 
 def hasWinner(board):
     winnerLabel = ''
-
+    
     #verifica vitórias verticais
     for col in '1 2 3' .split():
         if board[f'{str(int(col) + 3)}'] == board[f'{col}'] and board[f'{str(int(col) + 3)}'] != ' ':
@@ -87,7 +86,7 @@ def imprimeBoard(board):
     print(' ' + board['7'] + ' | ' + board['8'] + ' | ' + board['9'] )
     print()
 
-while gameOn:
+while True:
     jogador = informaJogador(players)
     os.system('cls')
     print(f'Turno do {jogador}')
@@ -107,4 +106,8 @@ while gameOn:
         gameOn = False
         os.system('cls')
         imprimeBoard(board)
-        print('Empatou!')   
+        print('Empatou!')
+        if input('Jogar novamente? [S/N] ').upper() == 'S':
+            board = resetGame()
+        else:
+            break
